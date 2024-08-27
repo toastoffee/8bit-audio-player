@@ -1,15 +1,34 @@
 #include <iostream>
-#include <AudioToolbox/AudioToolbox.h>
-#include "audio_player.h"
 
-int main(int argc, char *argv[])
+#include <stdio.h>
+#include <stdlib.h>
+#include <GLUT/glut.h>
+#include <OpenAL/alut.h>
+#include <OpenAL/al.h>
+#include <OpenAL/alc.h>
+
+#include "AudioToolbox/AudioToolbox.h"
+
+
+
+
+int main (int argc, char *argv[])
 {
+    ALCcontext *context;
+    ALCdevice *device;
 
-    auto audio = AudioPlayer::file("../test.wav");
+    device = alcOpenDevice(NULL);
+    if (device == NULL)
+    {
+        // Handle Exception
+    }
 
-    auto d = audio->duration();
-    audio->play();
+//Create a context
+    context=alcCreateContext(device,NULL);
 
+//Set active context
+    alcMakeContextCurrent(context);
 
-    return 0;
+// Clear Error Code
+    alGetError();
 }
